@@ -5,9 +5,10 @@
 %%% Properties %%%
 %%%%%%%%%%%%%%%%%%
 prop_test() ->
-    ?FORALL(Type, mytype(),
+    ?FORALL(TupleList, tuples(),
         begin
-            boolean(Type)
+            Result = library:sort_tuples(TupleList),
+            true
         end).
 
 %%%%%%%%%%%%%%%
@@ -18,4 +19,4 @@ boolean(_) -> true.
 %%%%%%%%%%%%%%%%%%
 %%% Generators %%%
 %%%%%%%%%%%%%%%%%%
-mytype() -> term().
+tuples() -> [{term(), term()}].
