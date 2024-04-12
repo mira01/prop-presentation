@@ -33,11 +33,12 @@ text_not_starting_with_dash() ->
                               end
                             end).
 
-tree(Type) ->
-  ?LET( Value
-      , frequency([ {1, undefined}
-                  , {5, [{Type, ?LAZY(tree(Type))}]}
-                  , {5, [{?LAZY(tree(Type)), Type}]}
-                  ])
-      , Value
-      ).
+tree(Type) -> ?SIZED(S,
+                     ?LET( Value
+                         , frequency([ {1, undefined}
+                                     , {S, [{Type, ?LAZY(tree(Type))}]}
+                                     , {S, [{?LAZY(tree(Type)), Type}]}
+                                     ])
+                         , Value
+                         )
+                    ).
