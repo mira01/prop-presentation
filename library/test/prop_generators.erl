@@ -36,8 +36,8 @@ text_not_starting_with_dash() ->
 tree(Type) ->
   ?LET( Value
       , frequency([ {1, undefined}
-                  , {5, [{Type, tree(Type)}]}
-                  , {5, [{tree(Type), Type}]}
+                  , {5, [{Type, ?LAZY(tree(Type))}]}
+                  , {5, [{?LAZY(tree(Type)), Type}]}
                   ])
       , Value
       ).
