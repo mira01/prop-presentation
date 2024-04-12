@@ -32,3 +32,12 @@ text_not_starting_with_dash() ->
                                 _ -> true
                               end
                             end).
+
+tree(Type) ->
+  ?LET( Value
+      , frequency([ {1, undefined}
+                  , {5, [{Type, tree(Type)}]}
+                  , {5, [{tree(Type), Type}]}
+                  ])
+      , Value
+      ).
