@@ -4,12 +4,20 @@
 %%%%%%%%%%%%%%%%%%
 %%% Properties %%%
 %%%%%%%%%%%%%%%%%%
-prop_test() ->
+prop_is_permutation_test() ->
     ?FORALL(TupleList, tuples(),
         begin
             Result = library:sort_tuples(TupleList),
             is_same_length(TupleList, Result)
             andalso contains_same_elements(TupleList, Result)
+        end).
+
+prop_idempotency_test() ->
+    ?FORALL(TupleList, tuples(),
+        begin
+            Result = library:sort_tuples(TupleList),
+            SecondResult = library:sort_tuples(Result),
+            Result =:= SecondResult
         end).
 
 %%%%%%%%%%%%%%%
@@ -26,4 +34,4 @@ contains_same_elements(A, B) ->
 %%%%%%%%%%%%%%%%%%
 %%% Generators %%%
 %%%%%%%%%%%%%%%%%%
-tuples() -> [{term(), term()}].
+tuples() -> list({term(), term()}).
